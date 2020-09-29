@@ -1,0 +1,3 @@
+[submodule "pop-gdp-db"]
+	path = pop-gdp-db
+	url = https://github.com/longavailable/ydm-population-gdp-db.git
