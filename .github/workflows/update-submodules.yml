@@ -1,0 +1,28 @@
+name: Update submodules automactially
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [update-submodules]
+    
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repos
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.YDM_TOKEN }} 
+        
+      - name: Update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          
+      - name: commit and push
+        uses: longavailable/simple-push-action@longavailable
+        with:
+          token: ${{ secrets.YDM_TOKEN }}
+          message: "Update submodules from Action `date`"
